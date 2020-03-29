@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.shapegame.GameActivity">
+
+    <TextView
+        android:id="@+id/gameTitle"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="114dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="97dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:text="Shape Game"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.shapegame.GameView
+        android:id="@+id/gameView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.67"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="107dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="00:00"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/add"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/score" />
+
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="107dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="end"
+        android:text="Time:"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/scoreText" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="107dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="10"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/gameTitle" />
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="107dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="end"
+        android:text="@string/remain"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/gameTitle" />
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="68dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="23dp"
+        android:background="@drawable/button_start"
+        android:enabled="false"
+        android:text="restart"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/gameView"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeText"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50121653" />
+
+    <Button
+        android:id="@+id/Add"
+        android:layout_width="68dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="121dp"
+        android:layout_marginBottom="23dp"
+        android:background="@drawable/button_start"
+        android:enabled="false"
+        android:text="@string/Add"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/gameView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

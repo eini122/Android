@@ -1,0 +1,59 @@
+/*
+    This class is the abstract class for declare shape
+    @Kaitian Li
+    @3/28/2020
+ */
+
+package com.example.shapegame.shape;
+
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.RectF;
+
+import com.example.shapegame.ShapeColor;
+
+import java.util.Random;
+
+public abstract class Shape {
+    int color;
+    public float x, y, size;
+    public int time;
+    public RectF rectf;
+
+    public Shape(Context context, float width, float height){
+        float randSize = new Random().nextInt((64 - 32) + 1) + 32;
+        this.size = randSize * context.getResources().getDisplayMetrics().density + 0.5f;
+        this.color = ShapeColor.getShapeColor();
+        this.x = new Random().nextInt((int) (width - this.size));
+        this.y = new Random().nextInt((int) (height - this.size));
+        this.time = new Random().nextInt((7000-3000+1)+3000);
+        rectf = new RectF(x ,y-size ,x+size,y);
+    }
+    public int getColor(){
+        return this.color;
+    }
+    public float getX(){
+        return this.x;
+    }
+
+    public float getY(){
+        return this.y;
+    }
+
+    public float getSize(){
+        return this.size;
+    }
+
+    public void setX(float x){
+        this.x = x;
+    }
+    public void setY(float y){
+        this.y = y;
+    }
+
+
+
+    public abstract void drawShape(Canvas canvas);
+
+}

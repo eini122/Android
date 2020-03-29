@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddActivity">
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/btn_select"
+        android:enabled="false"
+        android:fontFamily="@font/roboto"
+        android:text="@string/Save"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backBtn" />
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="289dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/btn_back"
+        android:fontFamily="@font/roboto"
+        android:text="@string/Back"
+        android:textColor="#3F51B5"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/saveBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scoreInput" />
+
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="281dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="33dp"
+        android:ems="10"
+        android:hint="@string/InputName"
+        android:inputType="textPersonName"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/scoreDisplay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameDisplay" />
+
+    <TextView
+        android:id="@+id/nameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="209dp"
+        android:layout_marginBottom="22dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="start"
+        android:text="@string/nameDisplay"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/nameInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/scoreInput"
+        android:layout_width="280dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="296dp"
+        android:textColor="#000000"
+        android:digits="01234567890"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="@string/InputScore"
+        android:inputType="number"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scoreDisplay" />
+
+    <TextView
+        android:id="@+id/scoreDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="209dp"
+        android:layout_marginBottom="26dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="start"
+        android:inputType="number"
+        android:text="@string/scoreDisplay"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/scoreInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameInput" />
+
+    <TextView
+        android:id="@+id/dateDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="308dp"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="start"
+        android:text="@string/Date"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/dateInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scoreInput" />
+
+    <EditText
+        android:id="@+id/dateInput"
+        android:layout_width="260dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="100dp"
+        android:textColor="#000000"
+        android:layout_marginBottom="127dp"
+        android:drawablePadding="5dp"
+        android:enabled="false"
+        android:ems="10"
+        android:inputType="date"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/backBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateDisplay" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

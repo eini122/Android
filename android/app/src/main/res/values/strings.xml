@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">shapeGame</string>
+    <string name="introduction">"This is a game that test human's reaction time. You need touch only the red circles. The game ends after 10 correct shapes have been touched. the rank based on the time, so shorter time you user, better rank you have"</string>
+    <string name="remain">Remain shape:</string>
+    <string name="Add">Add</string>
+    <string name="Save">Save</string>
+    <string name="Back">Back</string>
+    <string name="InputName">EX: John Smith</string>
+    <string name="InputScore">EX: 100</string>
+    <string name="nameDisplay">Player Name:</string>
+    <string name="scoreDisplay">Player Time:</string>
+    <string name="Date">Date</string>
+</resources>

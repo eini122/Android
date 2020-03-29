@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/gameTitle"
+        android:layout_width="178dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="111dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginBottom="82dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:text="Shape Game"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/introduction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/introduction"
+        android:layout_width="336dp"
+        android:layout_height="171dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="104dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="start"
+        android:text="@string/introduction"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/startBut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameTitle" />
+
+    <Button
+        android:id="@+id/startBut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="181dp"
+        android:background="@drawable/button_start"
+        android:text="OK"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/scoreBut"
+        app:layout_constraintTop_toBottomOf="@+id/introduction" />
+
+    <Button
+        android:id="@+id/scoreBut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="81dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginBottom="181dp"
+        android:background="@drawable/button_start"
+        android:text="Score"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/startBut"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/introduction" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
