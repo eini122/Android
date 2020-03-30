@@ -34,7 +34,13 @@ public class GameActivity extends AppCompatActivity {
         gameView.setTextViews(score, time);
         score.addTextChangedListener(scoreWatcher);
         intent = new Intent(this, AddActivity.class);
-
+        clear.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent backIntent = new Intent(GameActivity.this, MainActivity.class);
+                startActivity(backIntent);
+            }
+        });
         add.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

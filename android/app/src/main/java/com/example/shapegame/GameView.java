@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -38,6 +39,7 @@ public class GameView extends View {
     public GameView(Context context) {
         super(context);
         init(context);
+
     }
 
     public GameView(final Context context, @Nullable AttributeSet attrs) {
@@ -78,6 +80,7 @@ public class GameView extends View {
             }
         };
         thread.start();
+        startTimer();
     }
 
     public void init(Context context){
@@ -171,6 +174,7 @@ public class GameView extends View {
         for(Shape shape: shapeList){
             shape.drawShape(canvas);
         }
+
         h.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -235,6 +239,28 @@ public class GameView extends View {
             shapeList.add(square);
 
         }
+    }
+    public void startTimer(){
+        thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    while(!finish){
+                        int time = new Random().nextInt(7000 - 5000) + 5000;
+                        Thread.sleep(time);
+                        if(shapeList.size()>0 && !finish) {
+                            shapeList.clear();
+                        }
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+        thread.start();
     }
 
 
