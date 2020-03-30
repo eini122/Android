@@ -28,7 +28,6 @@
         android:layout_width="125dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="289dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="36dp"
         android:background="@drawable/btn_back"
@@ -38,8 +37,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/saveBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreInput" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/nameInput"

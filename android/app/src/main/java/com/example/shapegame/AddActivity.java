@@ -15,9 +15,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
@@ -26,6 +30,9 @@ public class AddActivity extends AppCompatActivity {
     private EditText nameInput, scoreInput, dateInput;//declare variables for editText
     private ImageView dateIcon;//declare variable for ImageView with icon
     private String name, score, date;//declare variable for store name, score, and date
+    private File dir;
+    private IO io;
+    private ArrayList<DTO> list = new ArrayList<>();
     final Calendar myCalendar = Calendar.getInstance();//get Calendar instance
     Intent intent;
 
@@ -33,6 +40,20 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        dir = (File) getIntent().getExtras().get("dir");
+        io = new IO();
+        try {
+            list = io.IORead(dir);
+            //sort only happens when list size greater than 1
+            //remove all the item if list size greater than 12
+            if(list.size()>11){
+                for(int i = list.size() - 11; i > 0; i--){
+                    list.remove(list.size()-1);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //get all component connected
         nameInput = findViewById(R.id.nameInput);
         scoreInput = findViewById(R.id.scoreInput);
@@ -59,24 +80,11 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //save click function that check information and set into text file
-
-                DTO result = new DTO();
                 try {
-                    result = saveClick();
-                    if(result.getName() != null){
-                        //get back to main activity
-                        Intent intent = new Intent();
-                        intent.putExtra("dto", result);
-                        setResult(RESULT_OK, intent);
-                        finish();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "Input is not validate", Toast.LENGTH_LONG).show();
-                    }
+                    saveClick();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-
             }
 
         });
@@ -89,7 +97,7 @@ public class AddActivity extends AppCompatActivity {
     }
 
     //function that check the record is available to store into list
-    private DTO saveClick() throws ParseException {
+    private void saveClick() throws ParseException {
         //get the date from edited text
         name = nameInput.getText().toString();
         score = scoreInput.getText().toString();
@@ -99,8 +107,16 @@ public class AddActivity extends AppCompatActivity {
         result.setName(name);
         result.setScore(score);
         result.setDate(date);
-
-        return result;
+        list.add(result);
+        try{
+            io.IOWrite(dir, list);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Toast.makeText(getApplicationContext(), "Add Success", Toast.LENGTH_LONG).show();
+        saveBtn.setEnabled(false);
+        nameInput.setText("");
+        scoreInput.setText("");
     }
     //function that check when text change to enable save button
     private TextWatcher saveWatcher = new TextWatcher() {
@@ -131,4 +147,5 @@ public class AddActivity extends AppCompatActivity {
 
         return formattedDate;
     }
+
 }

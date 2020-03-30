@@ -27,7 +27,6 @@ public abstract class Shape {
         this.color = ShapeColor.getShapeColor();
         this.x = new Random().nextInt((int) (width - this.size));
         this.y = new Random().nextInt((int) (height - this.size));
-        this.time = new Random().nextInt((7000-3000+1)+3000);
         rectf = new RectF(x ,y-size ,x+size,y);
     }
     public int getColor(){
@@ -50,6 +49,12 @@ public abstract class Shape {
     }
     public void setY(float y){
         this.y = y;
+    }
+    public void setTime(int time){
+        this.time = time;
+    }
+    public int getTime(){
+        return this.time;
     }
 
 

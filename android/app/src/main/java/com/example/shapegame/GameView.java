@@ -25,15 +25,16 @@ import java.util.Random;
 
 public class GameView extends View {
     private Paint paint;
-    private int canvasHeight, canvasWidth, count, numPop;
+    private int canvasHeight, canvasWidth, count, numPop, timeCount, finalTimeCount;
     private Handler h;
-    private int frameRate;
+    private int frameRate, colorInt;
     private TextView score, timer;
     private LinkedList<Shape> shapeList;
     private Runnable gameRunner;
     private Thread thread;
     private boolean finish = false;
-
+    private boolean isCircle;
+    private String result;
 
 
     public GameView(Context context) {
@@ -52,6 +53,7 @@ public class GameView extends View {
 
                    try {
                        Thread.sleep(1000);
+                       timeCount ++;
                        if(score.getText().toString().equals("0")){
                            break;
                        }
@@ -95,6 +97,34 @@ public class GameView extends View {
         this.timer = timer;
     }
 
+    public void setCorrect(String correctColor, String correctShape){
+        String correct= correctColor;
+        isCircle = correctShape.equals("Circle")? true: false;
+        switch(correct){
+            case "Red":
+                colorInt = Color.RED;
+                break;
+            case "Orange":
+                colorInt = Color.rgb(255, 165, 0);
+                break;
+            case "Yellow":
+                colorInt = Color.YELLOW;
+                break;
+            case "Green":
+                colorInt = Color.GREEN;
+                break;
+            case "Blue":
+                colorInt =  Color.BLUE;
+                break;
+            case "Purple":
+                colorInt = Color.rgb(128, 0, 128);
+                break;
+            case "White":
+                colorInt = Color.WHITE;
+                break;
+        }
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if(count > 1){
@@ -115,18 +145,36 @@ public class GameView extends View {
 
                 if(touchedShape != null){
                     numPop += 1;
-                    int color = Color.RED;
-                    boolean circle = (touchedShape instanceof Circle);
-                    if(touchedShape.getColor() == Color.RED && touchedShape instanceof Circle){
-                        String temp = score.getText().toString();
-                        if(temp.equals("9")){
-                            score.setText("0");
-                            count = 0;
-                            finish = true;
-                        }else{
-                            int scoreNum = Integer.parseInt(temp) - 1;
-                            temp = scoreNum +"";
-                            score.setText(temp);
+                    if(isCircle){
+                        if(touchedShape.getColor() == colorInt && touchedShape instanceof Circle){
+                            finalTimeCount += timeCount - touchedShape.getTime();
+                            String temp = score.getText().toString();
+                            if(temp.equals("9")){
+                                score.setText("0");
+                                result = toTime(finalTimeCount);
+                                count = 0;
+                                finish = true;
+                            }else{
+                                int scoreNum = Integer.parseInt(temp) - 1;
+                                temp = scoreNum +"";
+                                score.setText(temp);
+                            }
+                        }
+                    }
+                    else {
+                        if(touchedShape.getColor() == colorInt && touchedShape instanceof Square){
+                            finalTimeCount += timeCount - touchedShape.getTime();
+                            String temp = score.getText().toString();
+                            if(temp.equals("9")){
+                                score.setText("0");
+                                result = toTime(finalTimeCount);
+                                count = 0;
+                                finish = true;
+                            }else{
+                                int scoreNum = Integer.parseInt(temp) - 1;
+                                temp = scoreNum +"";
+                                score.setText(temp);
+                            }
                         }
                     }
                     shapeList.remove(touchedShape);
@@ -151,12 +199,12 @@ public class GameView extends View {
             shapeList.clear();
             Paint paint = new Paint();
             paint.setTextSize(60);
-            String result = "Time cost: " + timer.getText().toString();
+            String temp = "Time cost: " + result;
             String numPoped = "Number of shape clicked: "+ numPop;
             paint.setColor(Color.WHITE);
             float x = canvasWidth / 4;
             float y = canvasHeight / 2;
-            canvas.drawText(result, x, y, paint);
+            canvas.drawText(temp, x, y, paint);
             canvas.drawText(numPoped, x, y+60, paint);
         }
 
@@ -223,7 +271,7 @@ public class GameView extends View {
                     fixBound(circle);
                 }
             }
-            long time = (long)circle.time;
+            circle.setTime(timeCount);
             shapeList.add(circle);
 
 
@@ -236,6 +284,7 @@ public class GameView extends View {
                     fixBound(square);
                 }
             }
+            square.setTime(timeCount);
             shapeList.add(square);
 
         }
@@ -247,7 +296,7 @@ public class GameView extends View {
                 try {
                     Thread.sleep(1000);
                     while(!finish){
-                        int time = new Random().nextInt(7000 - 5000) + 5000;
+                        int time = new Random().nextInt(7000 - 3000) + 3000;
                         Thread.sleep(time);
                         if(shapeList.size()>0 && !finish) {
                             shapeList.clear();
@@ -262,6 +311,22 @@ public class GameView extends View {
         };
         thread.start();
     }
-
+    public String getTime(){
+        return result;
+    }
+    public String toTime(int inputTime){
+        String minute, second;
+        if(inputTime> 60){
+            int min = inputTime % 60;
+            minute = min < 10? "0"+min: min+"";
+            inputTime /= 60;
+            second = inputTime < 10? "0" + inputTime: inputTime+"";
+        }else{
+            minute = "00";
+            second = inputTime<10? "0" + inputTime: inputTime+"";
+        }
+        String temp = minute+":"+second;
+        return temp;
+    }
 
 }
