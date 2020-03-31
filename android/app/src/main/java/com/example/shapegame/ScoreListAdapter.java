@@ -1,3 +1,11 @@
+/******************************************************************************
+ * This is the class create a adapter read the list and store line by line to
+ * the view
+ *
+ * @Kaitian LI
+ * 3/30/2020
+ * kxl180016
+ ******************************************************************************/
 package com.example.shapegame;
 
 import android.content.Context;
@@ -42,6 +50,12 @@ public class ScoreListAdapter extends ArrayAdapter<DTO> {
         TextView tvScore = convertView.findViewById(R.id.score);
         TextView tvDate = convertView.findViewById(R.id.date);
         TextView tvOrder = convertView.findViewById(R.id.order);
+        if(position == 0){
+            tvOrder.setText("Order");
+            tvName.setText("Name");
+            tvScore.setText("Time");
+            tvDate.setText("Date");
+        }
         //set text
         tvName.setText(name);
         tvScore.setText(score);

@@ -1,8 +1,10 @@
-/*
-    This class is the abstract class for declare shape
-    @Kaitian Li
-    @3/28/2020
- */
+/******************************************************************************
+ * This class is the abstract class for declare shape
+ *
+ * @Kaitian LI
+ * 3/30/2020
+ * kxl180016
+ ******************************************************************************/
 
 package com.example.shapegame.shape;
 

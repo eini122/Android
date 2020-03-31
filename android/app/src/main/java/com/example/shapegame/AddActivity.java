@@ -1,18 +1,24 @@
+/******************************************************************************
+ * This activity will allow user add their score to the top 12 list
+ * it will go back game activity once user click save
+ *
+ * @Kaitian LI
+ * 3/30/2020
+ * kxl180016
+ ******************************************************************************/
+
 package com.example.shapegame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,13 +29,13 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Locale;
 
 public class AddActivity extends AppCompatActivity {
     private Button backBtn, saveBtn;//declare variables for button
     private EditText nameInput, scoreInput, dateInput;//declare variables for editText
     private ImageView dateIcon;//declare variable for ImageView with icon
     private String name, score, date;//declare variable for store name, score, and date
+    //declare variables dir for store path, object io and list to store DTO
     private File dir;
     private IO io;
     private ArrayList<DTO> list = new ArrayList<>();
@@ -40,11 +46,26 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        //get path from game activity
         dir = (File) getIntent().getExtras().get("dir");
+        //generate io object
         io = new IO();
         try {
             list = io.IORead(dir);
-            //sort only happens when list size greater than 1
+            //sort only happens when list size greater than 2
+            if(list.size() > 2){
+                //override compare function
+                Collections.sort(list, new Comparator<DTO>() {
+                    @Override
+                    public int compare(DTO o1, DTO o2) {
+                        if(o1.getScore().compareTo(o2.getScore()) != 0){
+                            return o1.getScore().compareTo(o2.getScore());
+                        }else{
+                            return o2.getDate().compareTo(o1.getDate());
+                        }
+                    }
+                });
+            }
             //remove all the item if list size greater than 12
             if(list.size()>11){
                 for(int i = list.size() - 11; i > 0; i--){
@@ -82,6 +103,9 @@ public class AddActivity extends AppCompatActivity {
                 //save click function that check information and set into text file
                 try {
                     saveClick();
+                    Intent backIntent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -108,15 +132,12 @@ public class AddActivity extends AppCompatActivity {
         result.setScore(score);
         result.setDate(date);
         list.add(result);
+        //write list into txt file
         try{
             io.IOWrite(dir, list);
         }catch (Exception e){
             e.printStackTrace();
         }
-        Toast.makeText(getApplicationContext(), "Add Success", Toast.LENGTH_LONG).show();
-        saveBtn.setEnabled(false);
-        nameInput.setText("");
-        scoreInput.setText("");
     }
     //function that check when text change to enable save button
     private TextWatcher saveWatcher = new TextWatcher() {

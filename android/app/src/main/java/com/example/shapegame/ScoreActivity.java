@@ -1,8 +1,16 @@
+/******************************************************************************
+ * This activity will display the score order by time, It will using io that read
+ * from the txt file and sort it. Then using score adapter to store the data
+ * line by line
+ *
+ * @Kaitian LI
+ * 3/30/2020
+ * kxl180016
+ ******************************************************************************/
 package com.example.shapegame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,15 +20,13 @@ import android.widget.ListView;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 
 
 public class ScoreActivity extends AppCompatActivity {
+    //declare variables
     private Button backBtn;
     private ListView mListView;
     private ScoreListAdapter adapter;
@@ -32,6 +38,7 @@ public class ScoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
+        //get the path from main activity
         dir = (File) getIntent().getExtras().get("dir");
         io = new IO();
         try {

@@ -1,3 +1,11 @@
+/******************************************************************************
+ * This class the data to object class that store user name, score and data
+ * created
+ *
+ * @Kaitian LI
+ * 3/30/2020
+ * kxl180016
+ ******************************************************************************/
 package com.example.shapegame;
 
 

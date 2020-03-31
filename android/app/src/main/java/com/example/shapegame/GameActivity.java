@@ -1,3 +1,11 @@
+/******************************************************************************
+ * This activity will allow user play reflection game and add score when score
+ * is a high score or go back to main activity if user click back
+ *
+ * @Kaitian LI
+ * 3/30/2020
+ * kxl180016
+ ******************************************************************************/
 package com.example.shapegame;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +17,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +29,7 @@ import java.util.Comparator;
 import java.util.Date;
 
 public class GameActivity extends AppCompatActivity {
-//    Random r = new Random();
-//    int circleNum = r.nextInt(6) + 6;
+    //declare all used text view objects and intent
     private TextView score;
     private GameView gameView;
     private TextView time;
@@ -29,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
     private Button clear;
     private Button add;
     Intent intent;
+    //declare variables store finaltime, arraylist, and dir
     private String finalTime;
     private File dir;
     private ArrayList<DTO> list;
@@ -39,6 +48,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         //initial all button and text
         Intent getIntent = getIntent();
+        //get generated color and shape from main activity
         String color = getIntent.getStringExtra("color");
         String shape = getIntent.getStringExtra("shape");
         dir = (File) getIntent.getExtras().get("dir");
@@ -52,12 +62,13 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public int compare(DTO o1, DTO o2) {
                         if(o1.getScore().compareTo(o2.getScore()) != 0){
-                            return o2.getScore().compareTo(o1.getScore());
+                            return o1.getScore().compareTo(o2.getScore());
                         }else{
                             return o2.getDate().compareTo(o1.getDate());
                         }
                     }
                 });
+
             }
             //remove all the item if list size greater than 12
             if(list.size()>12){
@@ -68,6 +79,7 @@ public class GameActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //set all text views
         score = findViewById(R.id.score);
         time = findViewById(R.id.time);
         start = findViewById(R.id.start);
@@ -75,10 +87,14 @@ public class GameActivity extends AppCompatActivity {
         add = findViewById(R.id.Add);
         //set game view
         gameView = findViewById(R.id.gameView);
+        //set the generated color, shape , score text view and time text view to custome view
         gameView.setTextViews(score, time);
         gameView.setCorrect(color, shape);
+        //add text change listener that maintaining the game end
         score.addTextChangedListener(scoreWatcher);
+        //create intent to navigate to add score activity
         intent = new Intent(this, AddActivity.class);
+        //back button that go back main activity
         clear.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -86,6 +102,7 @@ public class GameActivity extends AppCompatActivity {
                 startActivity(backIntent);
             }
         });
+        //add button that go to addScore activity
         add.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -95,8 +112,8 @@ public class GameActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1, null);
             }
         });
-
     }
+    //function that maintaining the text chage for text view
     private TextWatcher scoreWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -104,7 +121,7 @@ public class GameActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //enable the save button only all three fields are not empty
+            //enable the button only game end and score is a high score
             String scoreText = score.getText().toString();
 
             if(scoreText.equals("0")){
@@ -121,16 +138,17 @@ public class GameActivity extends AppCompatActivity {
 
         }
     };
-
+    //function that check ths score is a high score by check the last element and new data
     private boolean isHeighScore(){
         DTO last = list.get(list.size()-1);//get the item of last list
+        finalTime = gameView.getTime();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdformat = new SimpleDateFormat("mm/dd/yyyy");//set date format
         String lastDate = last.getDate();//get the date for last record
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String formattedDate = simpleDateFormat.format(c);
         String lastScore = last.getScore();
-        if(lastScore.compareTo(finalTime)<0) return true;//return true if new score higher
+        if(lastScore.compareTo(finalTime)>0) return true;//return true if new score higher
             //if score are same, check the date
         else{
             if(lastScore.equals(finalTime) && lastDate.compareTo(formattedDate) < 0){
@@ -142,4 +160,18 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+
+    //function that check the result when add score activity finish
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                //disable add button
+                add.setEnabled(false);
+                //display text that let user knwo add score success
+                Toast.makeText(getApplicationContext(), "Add Success", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }
