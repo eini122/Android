@@ -341,6 +341,7 @@ public class GameView extends View {
                             }
                             //clear the shape list
                             shapeList.clear();
+                            count = new Random().nextInt(12-6)+6;
                         }
                     }
 
