@@ -38,7 +38,6 @@ public class GameView extends View {
     private int frameRate, colorInt;
     private TextView score, timer;
     private LinkedList<Shape> shapeList;
-    private Runnable gameRunner;
     private Thread thread;
     private boolean finish = false;
     private boolean isCircle;
@@ -255,7 +254,14 @@ public class GameView extends View {
     //function that ensure the shapes not overlap
     public boolean overLap(Shape newShape){
         for(Shape shape: shapeList){
-            if(shape.rectf.intersect(newShape.rectf)){
+//            if(shape.rectf.intersect(newShape.rectf)){
+//                return true;
+//            }
+            int[] newCenter = newShape.getCenter();
+            int[] oldCenter = shape.getCenter();
+            int dis = (int) Math.sqrt(Math.pow((newCenter[0] - oldCenter[0]), 2) + Math.pow((newCenter[1] - oldCenter[1]),2));
+            int requireDis = (int) (newShape.size * Math.sqrt(2)/2 + shape.size * Math.sqrt(2)/2);
+            if(dis < requireDis){
                 return true;
             }
         }
@@ -283,6 +289,7 @@ public class GameView extends View {
     //function that add new shapes to custom view
     public void addShape(){
         Random rand = new Random();
+        int time = new Random().nextInt(7000 - 3000) + 3000;
         //create a circle shape
         if(rand.nextBoolean()){
             Circle circle = new Circle(getContext(), canvasWidth, canvasHeight);
@@ -294,7 +301,11 @@ public class GameView extends View {
                 }
             }
             //ste create time for this object
+
+            int totalTime = timeCount + time;
             circle.setTime(timeCount);
+            circle.setLiftTime(time);
+            circle.setTotalTime(totalTime);
             shapeList.add(circle);
         }else{
             //create a square shape
@@ -307,11 +318,15 @@ public class GameView extends View {
                 }
             }
             //set create time for the shape
+            int totalTime = timeCount + time;
             square.setTime(timeCount);
+            square.setLiftTime(time);
+            square.setTotalTime(totalTime);
             shapeList.add(square);
 
         }
     }
+
     //function that keep refresh the page after every 3 - 7 seconds
     public void startTimer(){
         thread = new Thread() {

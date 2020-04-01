@@ -51,6 +51,9 @@ public class GameActivity extends AppCompatActivity {
         //get generated color and shape from main activity
         String color = getIntent.getStringExtra("color");
         String shape = getIntent.getStringExtra("shape");
+        TextView gameTitle = findViewById(R.id.gameTitle);
+        String display = "please touch "+ color +" " + shape;
+        gameTitle.setText(display);
         dir = (File) getIntent.getExtras().get("dir");
         IO io = new IO();
         try {
